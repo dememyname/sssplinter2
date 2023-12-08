@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logo 3D Rotatorio</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: black;
+    }
+
+    .container {
+      width: 300px;
+      height: 300px;
+      perspective: 1000px;
+    }
+
+    #logo {
+      fill: yellow;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <svg id="logo" viewBox="0 0 200 200">
+      <path d="M97.19,11.4c12.65-0.18,21.99,2.56,32.38,4.25c-6.11,5.56-12.21,11.12-18.32,16.68c-0.11,0-0.22,0-0.33,0
+      c-22.84-22.31-65.52,4.15-77.52,23.88c-4.98,8.18-9.22,26.07-0.65,32.71C43.16,97,63.07,90.81,71.35,85
+      c22.73-15.92,32.42-45.01,62.15-53.97c10.84-3.27,22,1.03,28.46,5.23c17.41,11.35,35.39,47.86,27.48,79.81
+      c-8.08,32.62-26.41,55.25-55.61,66.73c-54.99,21.63-115.82-20.68-118.74-69.67c0.11,0,0.22,0,0.33,0c1.64,0.55,3.27,1.09,4.91,1.64
+      c8.64,29.7,31.59,49.95,62.8,57.24c36.97,8.63,67.55-17.12,78.5-38.6c3.6-7.06,8.36-17.99,6.21-30.09
+      c-3.95-22.25-23.08-37.05-48.74-26.5c-22.15,9.11-34.19,39.09-70.98,34.02c-9.05-1.25-13.99-2.48-19.63-6.87
+      c-9.69-7.55-13.29-25.31-7.52-39.91c8.18-20.7,25.57-37.51,46.12-45.79C75.9,14.54,82.9,12.52,97.19,11.4z"/>
+    </svg>
+  </div>
+
+  <script>
+    const logo = document.getElementById('logo');
+
+    // Rotar el logo con el movimiento del cursor
+    document.addEventListener('mousemove', (e) => {
+      const xAxis = (window.innerWidth / 2 - e.pageX) / 10;
+      const yAxis = (window.innerHeight / 2 - e.pageY) / 10;
+      logo.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+    });
+
+    // Rotar el logo al hacer clic
+    document.addEventListener('click', () => {
+      logo.style.transitionDuration = '0.6s';
+      logo.style.transform += 'rotateY(360deg)';
+    });
+
+    createParticles();
+
+    function moveParticles(e) {
+      const particles = document.querySelectorAll('.particle');
+      particles.forEach((particle, index) => {
+        const speed = index * 0.01;
+        const x = e.clientX + Math.sin(speed) * 50;
+        const y = e.clientY + Math.cos(speed) * 50;
+        particle.style.transform = `translate(${x}px, ${y}px)`;
+      });
+    }
+
+    document.addEventListener('mousemove', moveParticles);
+  </script>
+</body>
+</html>
